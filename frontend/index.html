@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DeltaLens | Mississippi Delta</title>
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #24332d;
+            background: #f5f4ef;
+        }
+
+        header {
+            padding: 20px 24px;
+            background: #244c3b;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0 0 6px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 65vh;
+            min-height: 400px;
+            border-radius: 10px;
+            border: 1px solid #c8cec9;
+        }
+
+        .notice {
+            margin-top: 14px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+
+        footer {
+            padding: 12px 20px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>DeltaLens</h1>
+        <p>Open data for building better Delta communities.</p>
+    </header>
+
+    <main>
+        <h2>Mississippi Delta Explorer</h2>
+        <p>
+            Explore the region as we build tools for understanding
+            blight, redevelopment, and community infrastructure.
+        </p>
+
+        <div id="map"></div>
+
+        <div class="notice">
+            <strong>About these markers:</strong>
+            These are reference locations for DeltaLens testing,
+            not reports of vacant, abandoned, or blighted properties.
+        </div>
+    </main>
+
+    <footer>
+        Map data © OpenStreetMap contributors.
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Center the map on the Mississippi Delta.
+        const map = L.map("map").setView([33.75, -90.75], 8);
+
+        // Add the map background.
+        L.tileLayer(
+            "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            {
+                maxZoom: 19,
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">' +
+                    "OpenStreetMap contributors</a>"
+            }
+        ).addTo(map);
+
+        // Reference cities for testing only.
+        const referenceCities = [
+            {
+                name: "Clarksdale",
+                coordinates: [34.2001, -90.5709]
+            },
+            {
+                name: "Cleveland",
+                coordinates: [33.7440, -90.7248]
+            },
+            {
+                name: "Greenville",
+                coordinates: [33.4101, -91.0618]
+            }
+        ];
+
+        // Put a marker on the map for each reference city.
+        referenceCities.forEach(function (city) {
+            L.marker(city.coordinates)
+                .addTo(map)
+                .bindPopup(
+                    "<strong>" + city.name + "</strong><br>" +
+                    "Reference city — not a blight record."
+                );
+        });
+    </script>
+</body>
+</html>
