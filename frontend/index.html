@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DeltaLens | Mississippi Delta</title>
+    <title>DeltaLens | Mississippi Delta Explorer</title>
 
     <link
         rel="stylesheet"
@@ -17,119 +17,722 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --green: #244c3b;
+            --green-light: #e7efe8;
+            --background: #f4f5f1;
+            --border: #dce1db;
+            --muted: #68766d;
+            --white: #ffffff;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            color: #24332d;
-            background: #f5f4ef;
+            color: #25352c;
+            background: var(--background);
         }
 
         header {
-            padding: 20px 24px;
-            background: #244c3b;
+            background: var(--green);
             color: white;
+            padding: 18px 24px;
         }
 
-        header h1 {
+        .brand {
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .tagline {
+            margin: 6px 0 0;
+            color: #e0eae2;
+            font-size: 14px;
+        }
+
+        .page {
+            padding: 22px;
+            max-width: 1600px;
+            margin: auto;
+        }
+
+        .page-heading {
+            margin-bottom: 18px;
+        }
+
+        .page-heading h1 {
+            margin: 0 0 8px;
+            font-size: 26px;
+        }
+
+        .page-heading p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .stat {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .stat-number {
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 300px minmax(0, 1fr) 270px;
+            gap: 16px;
+            align-items: start;
+        }
+
+        .panel {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .panel-heading {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-heading h2 {
+            font-size: 17px;
             margin: 0 0 6px;
         }
 
-        header p {
+        .panel-heading p {
             margin: 0;
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--muted);
         }
 
-        main {
-            padding: 20px;
+        .controls {
+            padding: 14px;
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            min-height: 40px;
+            padding: 9px;
+            border: 1px solid #cbd3cc;
+            border-radius: 6px;
+            background: white;
+            color: #25352c;
+            font: inherit;
+        }
+
+        input:focus,
+        select:focus,
+        button:focus-visible {
+            outline: 2px solid #478567;
+            outline-offset: 2px;
+        }
+
+        .record-count {
+            font-size: 12px;
+            color: var(--muted);
+            padding: 0 14px 12px;
+        }
+
+        .record-list {
+            border-top: 1px solid var(--border);
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .record-card {
+            width: 100%;
+            display: block;
+            text-align: left;
+            padding: 14px;
+            border: 0;
+            border-bottom: 1px solid var(--border);
+            border-left: 4px solid transparent;
+            background: white;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .record-card:hover {
+            background: #f6f8f5;
+        }
+
+        .record-card.selected {
+            background: var(--green-light);
+            border-left-color: var(--green);
+        }
+
+        .record-name {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .record-meta {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 7px;
+            margin-top: 8px;
+            border-radius: 4px;
+            background: #edf0ed;
+            color: #45584b;
+            font-size: 11px;
+        }
+
+        .map-heading {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .map-heading h2 {
+            margin: 0 0 5px;
+            font-size: 17px;
+        }
+
+        .map-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
         }
 
         #map {
             width: 100%;
-            height: 65vh;
+            height: 590px;
             min-height: 400px;
-            border-radius: 10px;
-            border: 1px solid #c8cec9;
+            background: #e7ebe5;
+        }
+
+        .map-disclaimer {
+            padding: 12px 14px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+            border-top: 1px solid var(--border);
+        }
+
+        .details-body {
+            padding: 16px;
+            overflow-wrap: anywhere;
+        }
+
+        .details-empty {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .detail-field {
+            margin-bottom: 18px;
+        }
+
+        .detail-label {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 13px;
+            line-height: 1.6;
         }
 
         .notice {
-            margin-top: 14px;
-            padding: 12px;
-            background: white;
+            background: #fff9e8;
+            border: 1px solid #eadfb9;
             border-radius: 8px;
+            padding: 12px;
+            margin-top: 18px;
+            font-size: 12px;
             line-height: 1.5;
         }
 
-        footer {
-            padding: 12px 20px;
+        .empty-state {
+            padding: 20px 14px;
+            color: var(--muted);
             font-size: 13px;
+            line-height: 1.6;
+        }
+
+        footer {
+            padding: 22px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 1100px) {
+            .workspace {
+                grid-template-columns: 260px minmax(0, 1fr);
+            }
+
+            .details-panel {
+                grid-column: 1 / -1;
+            }
+
+            #map {
+                height: 520px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                padding: 12px;
+            }
+
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+
+            .details-panel {
+                grid-column: auto;
+            }
+
+            .stats {
+                gap: 8px;
+            }
+
+            .stat {
+                padding: 12px;
+            }
+
+            .stat-number {
+                font-size: 21px;
+            }
+
+            #map {
+                height: 430px;
+                min-height: 350px;
+            }
         }
     </style>
 </head>
 
 <body>
     <header>
-        <h1>DeltaLens</h1>
-        <p>Open data for building better Delta communities.</p>
+        <div class="brand">DeltaLens</div>
+        <p class="tagline">
+            Open data for building better Delta communities.
+        </p>
     </header>
 
-    <main>
-        <h2>Mississippi Delta Explorer</h2>
-        <p>
-            Explore the region as we build tools for understanding
-            blight, redevelopment, and community infrastructure.
-        </p>
+    <main class="page">
+        <section class="page-heading">
+            <h1>Mississippi Delta Explorer</h1>
+            <p>
+                Explore geographic records and investigate potential
+                redevelopment opportunities across the Delta.
+            </p>
+        </section>
 
-        <div id="map"></div>
+        <section class="stats" aria-label="Dataset summary">
+            <div class="stat">
+                <div class="stat-label">Total records</div>
+                <div class="stat-number" id="total-count">—</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">Demo records</div>
+                <div class="stat-number" id="demo-count">—</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">Verified records</div>
+                <div class="stat-number" id="verified-count">—</div>
+            </div>
+        </section>
+
+        <section class="workspace">
+            <aside class="panel">
+                <div class="panel-heading">
+                    <h2>Explore records</h2>
+                    <p>Search the dataset or filter records by status.</p>
+                </div>
+
+                <div class="controls">
+                    <div>
+                        <label for="search">Search</label>
+                        <input
+                            id="search"
+                            type="search"
+                            placeholder="Name, ID, source..."
+                        />
+                    </div>
+
+                    <div>
+                        <label for="status-filter">Record status</label>
+                        <select id="status-filter">
+                            <option value="all">All statuses</option>
+                            <option value="demo_only">Demo records</option>
+                            <option value="verified">Verified</option>
+                            <option value="needs_review">Needs review</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="record-count" id="record-count">
+                    Loading records...
+                </div>
+
+                <div class="record-list" id="record-list">
+                    <div class="empty-state">Loading records...</div>
+                </div>
+            </aside>
+
+            <section class="panel">
+                <div class="map-heading">
+                    <h2>Map view</h2>
+                    <p>Select a marker or record to explore its details.</p>
+                </div>
+
+                <div id="map" aria-label="Interactive map of the Mississippi Delta"></div>
+
+                <div class="map-disclaimer">
+                    Demonstration locations are illustrative city-area
+                    coordinates, not actual property assessments.
+                </div>
+            </section>
+
+            <aside class="panel details-panel">
+                <div class="panel-heading">
+                    <h2>Record details</h2>
+                    <p>Review the selected record's information.</p>
+                </div>
+
+                <div class="details-body" id="details">
+                    <div class="details-empty">
+                        Select a record from the list or click a map marker
+                        to see its details here.
+                    </div>
+                </div>
+            </aside>
+        </section>
 
         <div class="notice">
-            <strong>About these markers:</strong>
-            These are reference locations for DeltaLens testing,
-            not reports of vacant, abandoned, or blighted properties.
+            <strong>Data integrity:</strong>
+            Demo records are synthetic examples. A property's appearance
+            in a dataset does not by itself establish vacancy, abandonment,
+            blight, or redevelopment eligibility.
         </div>
     </main>
 
     <footer>
-        Map data © OpenStreetMap contributors.
+        Map tiles © OpenStreetMap contributors. DeltaLens is an early-stage
+        community data project.
     </footer>
 
-    
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        console.log("DeltaLens: starting map initialization");
-
-        const mapContainer = document.getElementById("map");
-        const map = L.map(mapContainer).setView([33.75, -90.75], 8);
+        // 1. Initialize the map.
+        const map = L.map("map").setView([33.75, -90.75], 8);
 
         L.tileLayer(
             "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
                 maxZoom: 19,
-                attribution: "&copy; OpenStreetMap contributors"
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">' +
+                    "OpenStreetMap contributors</a>"
             }
         ).addTo(map);
 
+        // 2. Store the dataset and marker references.
+        let allRecords = [];
+        let visibleRecords = [];
+        let selectedId = null;
+
+        const markers = new Map();
+
+        const searchInput = document.getElementById("search");
+        const statusFilter = document.getElementById("status-filter");
+        const recordList = document.getElementById("record-list");
+        const recordCount = document.getElementById("record-count");
+        const details = document.getElementById("details");
+
+        // Create HTML elements safely using textContent.
+        function createDetailField(labelText, valueText) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "detail-field";
+
+            const label = document.createElement("div");
+            label.className = "detail-label";
+            label.textContent = labelText;
+
+            const value = document.createElement("div");
+            value.className = "detail-value";
+            value.textContent = valueText || "Not provided";
+
+            wrapper.append(label, value);
+            return wrapper;
+        }
+
+        // 3. Display the selected record in the details panel.
+        function showDetails(record) {
+            details.replaceChildren();
+
+            details.append(
+                createDetailField("Record name", record.name),
+                createDetailField("Record ID", record.id),
+                createDetailField("Status", record.status),
+                createDetailField("Category", record.category),
+                createDetailField("Data source", record.source),
+                createDetailField("Last verified", record.last_verified),
+                createDetailField("Notes", record.notes)
+            );
+        }
+
+        // 4. Select a record from either the list or the map.
+        function selectRecord(record, moveMap = false) {
+            selectedId = record.id;
+
+            showDetails(record);
+            renderRecordList();
+
+            const marker = markers.get(record.id);
+
+            if (marker) {
+                if (moveMap) {
+                    map.setView(recordCoordinates(record), 13);
+                }
+
+                marker.openPopup();
+            }
+        }
+
+        function recordCoordinates(record) {
+            return [record.latitude, record.longitude];
+        }
+
+        // 5. Render the sidebar list using the current filters.
+        function renderRecordList() {
+            recordList.replaceChildren();
+
+            if (visibleRecords.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "empty-state";
+                empty.textContent =
+                    "No records match your search and filters.";
+                recordList.append(empty);
+                return;
+            }
+
+            visibleRecords.forEach(function (record) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "record-card";
+
+                if (record.id === selectedId) {
+                    button.classList.add("selected");
+                }
+
+                const name = document.createElement("span");
+                name.className = "record-name";
+                name.textContent = record.name;
+
+                const meta = document.createElement("span");
+                meta.className = "record-meta";
+                meta.textContent =
+                    "ID: " + record.id + " · " +
+                    record.category;
+
+                const tag = document.createElement("span");
+                tag.className = "tag";
+                tag.textContent = record.status;
+
+                button.append(name, meta, tag);
+
+                button.addEventListener("click", function () {
+                    selectRecord(record, true);
+                });
+
+                recordList.append(button);
+            });
+        }
+
+        // 6. Apply search and status filters to the dataset.
+        function applyFilters() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const selectedStatus = statusFilter.value;
+
+            visibleRecords = allRecords.filter(function (record) {
+                const searchableText = [
+                    record.id,
+                    record.name,
+                    record.status,
+                    record.category,
+                    record.source,
+                    record.notes
+                ].join(" ").toLowerCase();
+
+                const matchesSearch =
+                    searchableText.includes(searchTerm);
+
+                const matchesStatus =
+                    selectedStatus === "all" ||
+                    record.status === selectedStatus;
+
+                return matchesSearch && matchesStatus;
+            });
+
+            // Remove old markers before rebuilding the visible set.
+            markers.forEach(function (marker) {
+                map.removeLayer(marker);
+            });
+            markers.clear();
+
+            visibleRecords.forEach(function (record) {
+                const marker = L.marker(recordCoordinates(record));
+
+                const popup = document.createElement("div");
+                const title = document.createElement("strong");
+                const status = document.createElement("p");
+
+                title.textContent = record.name;
+                status.textContent =
+                    "Status: " + record.status +
+                    " | Category: " + record.category;
+
+                popup.append(title, status);
+
+                marker.bindPopup(popup);
+
+                marker.on("click", function () {
+                    selectRecord(record);
+                });
+
+                marker.addTo(map);
+                markers.set(record.id, marker);
+            });
+
+            recordCount.textContent =
+                visibleRecords.length + " of " +
+                allRecords.length + " records shown";
+
+            renderRecordList();
+
+            // Clear details if the selected record is filtered out.
+            const selectedRecord = visibleRecords.find(
+                function (record) {
+                    return record.id === selectedId;
+                }
+            );
+
+            if (selectedRecord) {
+                showDetails(selectedRecord);
+            } else {
+                selectedId = null;
+                details.replaceChildren();
+
+                const message = document.createElement("div");
+                message.className = "details-empty";
+                message.textContent =
+                    "Select a visible record to see its details.";
+
+                details.append(message);
+            }
+        }
+
+        // 7. Update the summary cards.
+        function updateStats() {
+            document.getElementById("total-count").textContent =
+                allRecords.length;
+
+            document.getElementById("demo-count").textContent =
+                allRecords.filter(function (record) {
+                    return record.status === "demo_only";
+                }).length;
+
+            document.getElementById("verified-count").textContent =
+                allRecords.filter(function (record) {
+                    return record.status === "verified";
+                }).length;
+        }
+
+        // 8. Load records from the FastAPI backend.
         async function loadOpportunities() {
             try {
                 const response = await fetch("/api/opportunities");
+
+                if (!response.ok) {
+                    throw new Error(
+                        "API returned HTTP " + response.status
+                    );
+                }
+
                 const data = await response.json();
 
-                data.records.forEach(function (record) {
-                    const marker = L.marker([
-                        record.latitude,
-                        record.longitude
-                    ]).addTo(map);
+                if (!Array.isArray(data.records)) {
+                    throw new Error("API response has no records array.");
+                }
 
-                    marker.bindPopup(
-                        "<strong>" + record.name + "</strong><br>" +
-                        "Status: " + record.status
-                    );
-                });
+                allRecords = data.records;
+                updateStats();
+                applyFilters();
 
-                console.log("DeltaLens: loaded", data.count, "records");
+                console.log(
+                    "DeltaLens loaded " + allRecords.length + " records."
+                );
+
             } catch (error) {
-                console.error("Failed to load records:", error);
+                console.error("DeltaLens loading error:", error);
+
+                recordCount.textContent = "Could not load records.";
+                recordList.replaceChildren();
+
+                const message = document.createElement("div");
+                message.className = "empty-state";
+                message.textContent =
+                    "Unable to load records. Check that the FastAPI server is running.";
+
+                recordList.append(message);
             }
         }
+
+        // 9. Make the controls respond to user input.
+        searchInput.addEventListener("input", applyFilters);
+        statusFilter.addEventListener("change", applyFilters);
 
         loadOpportunities();
     </script>
