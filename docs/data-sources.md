@@ -19,3 +19,17 @@ Mississippi Delta, Mississippi, USA.
 * Do not treat tax delinquency or tax forfeiture as proof of vacancy.
 * Do not treat a parcel's appearance in imagery as conclusive evidence of abandonment.
 * Clearly identify synthetic or demonstration data.
+
+## Active Geographic Services
+
+### Mississippi Western Parcel Boundaries
+
+- **Provider:** Mississippi GIS service; parcel data credited to MDEQ, MGI, and county tax assessor offices, among other contributors.
+- **Service:** MS_MDEQPARCELS_West_2024
+- **Service URL:** https://gis.mississippi.edu/server/rest/services/Cadastral/MS_MDEQPARCELS_West_2024/MapServer
+- **Layer ID:** 0
+- **Use in DeltaLens:** Optional geographic parcel-boundary overlay.
+- **Dataset label:** 2024, as identified by the service name.
+- **Accessed:** 2026-10-10
+- **Limitations:** Parcel coverage, attribute completeness, and update dates may vary. Parcel boundaries do not establish vacancy, abandonment, blight, ownership eligibility, or redevelopment potential.
+- **Verification status:** Public service identified; local coverage and rendering still need to be tested.

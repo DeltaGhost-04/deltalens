@@ -463,6 +463,7 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@3.0.19/dist/esri-leaflet.js"></script>
 
     <script>
         // 1. Initialize the map.
@@ -477,6 +478,26 @@
                     "OpenStreetMap contributors</a>"
             }
         ).addTo(map);
+        
+const parcelBoundaries = L.esri.dynamicMapLayer({
+    url: "https://gis.mississippi.edu/server/rest/services/Cadastral/MS_MDEQPARCELS_West_2024/MapServer",
+    layers: [0],
+    opacity: 0.65,
+    minZoom: 10,
+    attribution: "Mississippi MDEQ / MGI / county tax assessor parcel data"
+});
+
+L.control.layers(
+    null,
+    {
+        "Mississippi parcel boundaries (2024)": parcelBoundaries
+    },
+    {
+        collapsed: false
+    }
+).addTo(map);
+
+console.log("DeltaLens: parcel overlay configured");
 
         // 2. Store the dataset and marker references.
         let allRecords = [];
