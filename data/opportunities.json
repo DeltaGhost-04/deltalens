@@ -1,0 +1,36 @@
+
+[
+  {
+    "id": "DEMO-001",
+    "name": "Clarksdale Demonstration Record",
+    "latitude": 34.2001,
+    "longitude": -90.5709,
+    "status": "demo_only",
+    "category": "unverified",
+    "source": "Synthetic demonstration data",
+    "last_verified": null,
+    "notes": "Illustrative record for software testing. Not an actual property assessment."
+  },
+  {
+    "id": "DEMO-002",
+    "name": "Cleveland Demonstration Record",
+    "latitude": 33.7440,
+    "longitude": -90.7248,
+    "status": "demo_only",
+    "category": "unverified",
+    "source": "Synthetic demonstration data",
+    "last_verified": null,
+    "notes": "Illustrative record for software testing. Not an actual property assessment."
+  },
+  {
+    "id": "DEMO-003",
+    "name": "Greenville Demonstration Record",
+    "latitude": 33.4101,
+    "longitude": -91.0618,
+    "status": "demo_only",
+    "category": "unverified",
+    "source": "Synthetic demonstration data",
+    "last_verified": null,
+    "notes": "Illustrative record for software testing. Not an actual property assessment."
+  }
+]

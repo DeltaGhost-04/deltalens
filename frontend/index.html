@@ -91,48 +91,47 @@
         Map data © OpenStreetMap contributors.
     </footer>
 
+    
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // Center the map on the Mississippi Delta.
-        const map = L.map("map").setView([33.75, -90.75], 8);
+        console.log("DeltaLens: starting map initialization");
 
-        // Add the map background.
+        const mapContainer = document.getElementById("map");
+        const map = L.map(mapContainer).setView([33.75, -90.75], 8);
+
         L.tileLayer(
             "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
                 maxZoom: 19,
-                attribution:
-                    '&copy; <a href="https://www.openstreetmap.org/copyright">' +
-                    "OpenStreetMap contributors</a>"
+                attribution: "&copy; OpenStreetMap contributors"
             }
         ).addTo(map);
 
-        // Reference cities for testing only.
-        const referenceCities = [
-            {
-                name: "Clarksdale",
-                coordinates: [34.2001, -90.5709]
-            },
-            {
-                name: "Cleveland",
-                coordinates: [33.7440, -90.7248]
-            },
-            {
-                name: "Greenville",
-                coordinates: [33.4101, -91.0618]
-            }
-        ];
+        async function loadOpportunities() {
+            try {
+                const response = await fetch("/api/opportunities");
+                const data = await response.json();
 
-        // Put a marker on the map for each reference city.
-        referenceCities.forEach(function (city) {
-            L.marker(city.coordinates)
-                .addTo(map)
-                .bindPopup(
-                    "<strong>" + city.name + "</strong><br>" +
-                    "Reference city — not a blight record."
-                );
-        });
+                data.records.forEach(function (record) {
+                    const marker = L.marker([
+                        record.latitude,
+                        record.longitude
+                    ]).addTo(map);
+
+                    marker.bindPopup(
+                        "<strong>" + record.name + "</strong><br>" +
+                        "Status: " + record.status
+                    );
+                });
+
+                console.log("DeltaLens: loaded", data.count, "records");
+            } catch (error) {
+                console.error("Failed to load records:", error);
+            }
+        }
+
+        loadOpportunities();
     </script>
 </body>
 </html>
